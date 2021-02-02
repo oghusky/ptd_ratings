@@ -28,7 +28,14 @@ app.post("/api/rate_us", async (req, res) => {
   }
 });
 
-app.get("/api/ratings", cors(), async (req, res) => {
+app.options("/api/ratings", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader('Access-Control-Allow-Methods', '*');
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  res.end();
+})
+
+app.get("/api/ratings", async (req, res) => {
   const rates = await Rating.find();
   const ratings = rates.map(rate => {
     return { fname: rate.fname, lname: rate.lname[0], comment: rate.comment }
