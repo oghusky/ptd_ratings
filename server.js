@@ -1,5 +1,7 @@
+require('dotenv').config();
 const express = require('express'),
   app = express(),
+  path = require('path'),
   Rating = require('./models/Rating'),
   connectDB = require('./config/connectDB'),
   PORT = process.env.PORT || 3001;
@@ -28,6 +30,15 @@ app.get("/api/ratings", async (req, res) => {
     return { fname: rate.fname, lname: rate.lname[0], comment: rate.comment }
   });
   return res.status(200).json({ msg: "Found Ratings", ratings })
+});
+
+/*
+@GET route
+desc react routes
+access public
+*/
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./index.html"));
 });
 
 app.listen(PORT, () => {
