@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express'),
   app = express(),
+  cors = require('cors'),
   path = require('path'),
   Rating = require('./models/Rating'),
   connectDB = require('./config/connectDB'),
@@ -27,7 +28,7 @@ app.post("/api/rate_us", async (req, res) => {
   }
 });
 
-app.get("/api/ratings", async (req, res) => {
+app.get("/api/ratings", cors(), async (req, res) => {
   const rates = await Rating.find();
   const ratings = rates.map(rate => {
     return { fname: rate.fname, lname: rate.lname[0], comment: rate.comment }
