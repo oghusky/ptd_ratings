@@ -40,7 +40,7 @@ app.get("/api/ratings", async (req, res) => {
 desc react routes
 access public
 */
-app.get("*", (req, res) => {
+app.get("/rate_form", (req, res) => {
   res.sendFile(path.join(__dirname, "./index.html"));
 });
 
