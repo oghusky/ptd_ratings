@@ -16,11 +16,14 @@ app.get("/config", (req, res) => {
 })
 
 app.post("/api/rate_us", async (req, res) => {
-  const { fname, lname, email, rating, comment } = req.body;
-  if (fname && lname && rating && comment) {
-    const newRate = new Rating({ fname, lname, email, rating, comment });
-    await newRate.save();
-    return res.status(201).json({ msg: "Rating created", newRate })
+  try {
+    const { fname, lname, email, rating, comment } = req.body;
+    if (fname && lname && rating && email && comment && rating) {
+      const newRate = await Rating.create({ fname, lname, rating: parseInt(rating), email, comment });
+      return res.status(201).json({ msg: "nice", newRate })
+    }
+  } catch (err) {
+    return res.status(500).json({ msg: "Unable to submit rating" })
   }
 });
 
