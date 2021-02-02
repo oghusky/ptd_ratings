@@ -9,6 +9,7 @@ const express = require('express'),
 
 connectDB();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -27,13 +28,6 @@ app.post("/api/rate_us", async (req, res) => {
     return res.status(500).json({ msg: "Unable to submit rating" })
   }
 });
-
-app.options("/api/ratings", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader('Access-Control-Allow-Methods', '*');
-  res.setHeader("Access-Control-Allow-Headers", "*");
-  res.end();
-})
 
 app.get("/api/ratings", async (req, res) => {
   const rates = await Rating.find();
