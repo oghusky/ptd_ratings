@@ -32,7 +32,7 @@ app.post("/api/rate_us", async (req, res) => {
 app.get("/api/ratings", async (req, res) => {
   const rates = await Rating.find();
   const ratings = rates.map(rate => {
-    return { fname: rate.fname, lname: rate.lname[0], comment: rate.comment }
+    return { fname: rate.fname, lname: rate.lname[0], rating: rate.rating, comment: rate.comment }
   });
   return res.status(200).json({ msg: "Found Ratings", ratings })
 });
