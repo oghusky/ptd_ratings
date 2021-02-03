@@ -20,6 +20,10 @@ app.get("/config", (req, res) => {
 app.post("/api/rate_us", async (req, res) => {
   try {
     const { fname, lname, email, rating, comment } = req.body;
+// let reviewCheck = await Rating.find({email});
+// if (reviewCheck) {
+// return res.status(200).json({msg: 'You have already submitted a review'})
+//     }
     if (fname && lname && rating && email && comment && rating) {
       const newRate = await Rating.create({ fname, lname, rating: parseInt(rating), email, comment });
       return res.status(201).json({ msg: "nice", newRate })
@@ -30,7 +34,7 @@ app.post("/api/rate_us", async (req, res) => {
 });
 
 app.get("/api/ratings", async (req, res) => {
-  const rates = await Rating.find();
+  const rates = await Rating.find({});
   const ratings = rates.map(rate => {
     return { fname: rate.fname, lname: rate.lname[0], rating: rate.rating, comment: rate.comment }
   });
