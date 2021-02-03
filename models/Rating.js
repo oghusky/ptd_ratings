@@ -25,7 +25,7 @@ const RatingSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: true,
-    minlength: 10,
+    minlength: 2,
     maxlength: 200
   }
 }, { timestamps: true });
